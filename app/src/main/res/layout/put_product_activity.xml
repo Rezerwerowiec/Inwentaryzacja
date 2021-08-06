@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PutProductActivity"
+    android:orientation="horizontal">
+
+    <Button
+
+        android:id="@+id/scan_barcode"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:paddingTop="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
+        android:text="Skanuj BarCode"
+        android:gravity="top"
+        android:textSize="30sp"
+        android:onClick="scanBarCode"/>
+
+
+    <TextView
+        android:id="@+id/barcodeview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+
+        android:textSize="30sp"
+        android:layout_below="@id/scan_barcode"/>
+
+    <EditText
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginTop="40dp"
+        android:inputType="number"
+        android:hint="Podaj ilość sztuk"
+        android:layout_below="@id/barcodeview"
+        android:importantForAutofill="no" />
+
+    <Spinner
+        android:id="@+id/item_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantity"
+        android:entries="@array/item_type"
+        android:background="@color/design_default_color_secondary"
+        android:layout_marginTop="30sp"
+        android:minHeight="50sp"
+        />
+
+    <Button
+
+        android:id="@+id/sendData"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:paddingTop="0dp"
+        android:layout_marginTop="80dp"
+        android:layout_height="wrap_content"
+        android:text="Wyślij dane"
+        android:layout_below="@+id/item_type"
+        android:textSize="30sp"
+        android:onClick="onClickSendData"/>
+
+</RelativeLayout>

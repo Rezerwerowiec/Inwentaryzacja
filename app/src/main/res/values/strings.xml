@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Inwentaryzacja</string>
+    <string-array name="item_type">
+        <item>DELL 5510</item>
+        <item>EX1</item>
+        <item>EX2</item>
+        <item>EX3</item>
+        <item>EX4</item>
+        <item>EX5</item>
+        <item>EX6</item>
+        <item>EX7</item>
+    </string-array>
+</resources>

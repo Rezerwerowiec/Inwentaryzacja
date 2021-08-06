@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1064780373250",
+    "project_id": "button-clicker-592ea",
+    "storage_bucket": "button-clicker-592ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064780373250:android:e2191f37e57480b6e3b61b",
+        "android_client_info": {
+          "package_name": "pfhb.damian.inwentaryzacja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064780373250-b0blq85k39oktlvotqqqjjuqg7bqki21.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIsqJmW7FmjBw92jZIR--mpmdykxuRB0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1064780373250-b0blq85k39oktlvotqqqjjuqg7bqki21.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
