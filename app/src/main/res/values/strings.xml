@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Inwentaryzacja</string>
     <string-array name="item_type">
+        <item>Nie zmieniaj nazwy...</item>
         <item>DELL 5510</item>
         <item>EX1</item>
         <item>EX2</item>
