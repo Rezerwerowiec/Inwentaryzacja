@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pfhb.damian.inwentaryzacja" >
-
+    package="pfhb.damian.inwentaryzacja">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 
     <application
         android:allowBackup="true"
@@ -13,10 +11,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Inwentaryzacja" >
+        android:theme="@style/Theme.Inwentaryzacja">
+        <activity
+            android:name=".BarcodeInfoActivity"
+            android:exported="true" />
         <activity
             android:name=".PutProductActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

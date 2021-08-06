@@ -13,8 +13,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -29,6 +34,7 @@ import java.util.Objects;
 public class PutProductActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
+    Map<String, Object> data;
     String barcodeSaved ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,8 @@ public class PutProductActivity extends AppCompatActivity {
         setContentView(R.layout.put_product_activity);
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.item_type, R.layout.spinner_view); //change the last argument here to your xml above.
-        typeAdapter.setDropDownViewResource(android.R.layout.activity_list_item);        db = FirebaseFirestore.getInstance();
+        typeAdapter.setDropDownViewResource(android.R.layout.activity_list_item);
+        db = FirebaseFirestore.getInstance();
 
     }
 
@@ -147,13 +154,28 @@ public class PutProductActivity extends AppCompatActivity {
         if(!item.equals("Nie zmieniaj nazwy..."))
             dataToSend.put("Item", item);
 
-        FireBasePutData(dataToSend);
 
+        FireBasePutData(dataToSend);
 
         TextView textView = findViewById(R.id.barcodeview);
         textView.setText("");
         et = findViewById(R.id.quantity);
         et.setText("");
+        barcodeSaved = "";
+
     }
+
+    public void FireBaseGetInfoAboutBarcode(View view){
+        if(barcodeSaved.equals("")){
+            Toast.makeText(this, "Zeskanuj najpierw BARCODE!!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, BarcodeInfoActivity.class);
+        intent.putExtra("barcode", barcodeSaved);
+        startActivity(intent);
+
+    }
+
 
 }
