@@ -34,7 +34,7 @@
         android:layout_marginTop="40dp"
         android:hint="Podaj ilość sztuk"
         android:importantForAutofill="no"
-        android:inputType="number"
+        android:inputType="numberDecimal|numberSigned"
         android:textSize="40sp" />
 
     <Spinner

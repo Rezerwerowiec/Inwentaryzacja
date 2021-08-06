@@ -3,8 +3,11 @@ package pfhb.damian.inwentaryzacja;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.app.admin.DeviceAdminInfo;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -75,11 +79,22 @@ public class PutProductActivity extends AppCompatActivity {
         if(quantity == 0)
             quantity = 1;
 
+        Map<String, Object> mapped = new HashMap<>();
+        if(quantity>0) {
+            mapped.put("q_added", FieldValue.increment(quantity));
+        }
+        else{
+            mapped.put("q_deleted", FieldValue.increment(-quantity));
+        }
+        mapped.put("quantity", FieldValue.increment(quantity));
+
         try{
-            wait(2000);
+            wait(1200);
             db.collection("Inwentaryzacja_testy")
                     .document(barcodeSaved)
-                    .update("quantity", FieldValue.increment(quantity));
+                    .update(mapped);
+            wait(1200);
+            MakeLogs(newData, quantity);
         }
         catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -89,6 +104,28 @@ public class PutProductActivity extends AppCompatActivity {
 
 
     }
+
+    private void MakeLogs(Map<String,Object> newData, int quantity){
+        EditText et = findViewById(R.id.quantity);
+
+
+        newData.put("quantity", quantity);
+        newData.put("user", Build.MANUFACTURER.toString()+" " + Build.MODEL.toString());
+        db.collection("Inwentaryzacja_testy_logs")
+                .document(Timestamp.now().toDate().toString())
+                .set(newData)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "DocumentSnapshot added");
+                    Toast.makeText(getApplicationContext(), "Data successfully sent.", Toast.LENGTH_LONG).show();
+
+                })
+                .addOnFailureListener(e -> {
+                    Log.w(TAG, "Error adding document", e);
+                    Toast.makeText(getApplicationContext(), "Cannot send data...", Toast.LENGTH_LONG).show();
+
+                });
+    }
+
 
     public void FireBaseReadData(){
         db.collection("Inwentaryzacja_testy")
