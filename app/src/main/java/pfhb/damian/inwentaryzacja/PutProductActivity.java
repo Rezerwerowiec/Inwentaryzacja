@@ -106,23 +106,16 @@ public class PutProductActivity extends AppCompatActivity {
     }
 
     private void MakeLogs(Map<String,Object> newData, int quantity){
-        EditText et = findViewById(R.id.quantity);
-
-
         newData.put("quantity", quantity);
         newData.put("user", Build.MANUFACTURER.toString()+" " + Build.MODEL.toString());
         db.collection("Inwentaryzacja_testy_logs")
                 .document(Timestamp.now().toDate().toString())
                 .set(newData)
                 .addOnSuccessListener(aVoid -> {
-                    Log.d(TAG, "DocumentSnapshot added");
-                    Toast.makeText(getApplicationContext(), "Data successfully sent.", Toast.LENGTH_LONG).show();
-
+                    Log.d(TAG, "Logs: DocumentSnapshot added");
                 })
                 .addOnFailureListener(e -> {
-                    Log.w(TAG, "Error adding document", e);
-                    Toast.makeText(getApplicationContext(), "Cannot send data...", Toast.LENGTH_LONG).show();
-
+                    Log.w(TAG, "Logs: Error adding document", e);
                 });
     }
 
@@ -214,5 +207,20 @@ public class PutProductActivity extends AppCompatActivity {
 
     }
 
+    public void onClickShowReport(View view){
+        if(barcodeSaved.equals("")){
+            Toast.makeText(this, "Zeskanuj najpierw BARCODE!!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, ReportGraphActivity.class);
+        intent.putExtra("barcode", barcodeSaved);
+        startActivity(intent);
+    }
+
+    public void onClickShowLogs(View view){
+        Intent intent = new Intent(this, LogsDisplayActivity.class);
+        startActivity(intent);
+    }
 
 }

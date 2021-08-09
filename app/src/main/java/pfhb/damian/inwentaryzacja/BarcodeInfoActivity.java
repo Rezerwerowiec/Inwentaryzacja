@@ -28,8 +28,9 @@ public class BarcodeInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_info);
         Intent intent = getIntent();
-        db = FirebaseFirestore.getInstance();
         barcodeSaved = intent.getStringExtra("barcode");
+
+        db = FirebaseFirestore.getInstance();
         Toast.makeText(this, barcodeSaved, Toast.LENGTH_LONG).show();
         GetInfo();
     }

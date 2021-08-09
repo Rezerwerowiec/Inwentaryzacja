@@ -10,5 +10,26 @@
         <item>EX5</item>
         <item>EX6</item>
         <item>EX7</item>
+        <item>EX11</item>
+        <item>EX21</item>
+        <item>EX31</item>
+        <item>EX41</item>
+        <item>EX51</item>
+        <item>EX61</item>
+        <item>EX71</item>
+        <item>EX12</item>
+        <item>EX22</item>
+        <item>EX32</item>
+        <item>EX42</item>
+        <item>EX52</item>
+        <item>EX62</item>
+        <item>EX72</item>
+        <item>EX121</item>
+        <item>EX221</item>
+        <item>EX321</item>
+        <item>EX421</item>
+        <item>EX521</item>
+        <item>EX621</item>
+        <item>EX721</item>
     </string-array>
 </resources>
