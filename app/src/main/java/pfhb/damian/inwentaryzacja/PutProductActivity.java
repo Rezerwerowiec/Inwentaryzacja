@@ -5,17 +5,21 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.app.admin.DeviceAdminInfo;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Selection;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,7 +35,9 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -44,10 +50,34 @@ public class PutProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.put_product_activity);
-        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
-                R.array.item_type, R.layout.spinner_view); //change the last argument here to your xml above.
-        typeAdapter.setDropDownViewResource(android.R.layout.activity_list_item);
         db = FirebaseFirestore.getInstance();
+
+
+        setUpSpinner();
+    }
+
+    private void setUpSpinner(){
+        Spinner spinner = (Spinner) findViewById(R.id.item_type);
+        List<String> spinnerArray =  new ArrayList<String>();
+        db.collection("itemTypes")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot document: task.getResult()){
+                            spinnerArray.add(document.getId());
+
+                        }
+                        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                                this,R.layout.spinner_layout,spinnerArray);
+                        spinner.setBackgroundColor(Color.rgb(100,100,100));
+                        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_layout);
+                        spinnerArrayAdapter.notifyDataSetChanged();
+
+                        spinner.setAdapter(spinnerArrayAdapter);
+                    }
+                });
+
+
 
     }
 
@@ -181,7 +211,7 @@ public class PutProductActivity extends AppCompatActivity {
         String item = String.valueOf(sp.getSelectedItem());
         dataToSend.put("Barcode", barcodeSaved);
 
-        if(!item.equals("Nie zmieniaj nazwy..."))
+        if(!item.equals("!Nie zmieniaj nazwy"))
             dataToSend.put("Item", item);
 
 
@@ -218,9 +248,6 @@ public class PutProductActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickShowLogs(View view){
-        Intent intent = new Intent(this, LogsDisplayActivity.class);
-        startActivity(intent);
-    }
+
 
 }
