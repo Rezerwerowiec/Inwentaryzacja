@@ -2,6 +2,7 @@ package pfhb.damian.inwentaryzacja;
 
 import static android.content.ContentValues.TAG;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.admin.DeviceAdminInfo;
 import android.content.Intent;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.pm.ActivityInfoCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -112,9 +115,11 @@ public class PutProductActivity extends AppCompatActivity {
         Map<String, Object> mapped = new HashMap<>();
         if(quantity>0) {
             mapped.put("q_added", FieldValue.increment(quantity));
+            mapped.put("q_deleted", FieldValue.increment(0));
         }
         else{
             mapped.put("q_deleted", FieldValue.increment(-quantity));
+            mapped.put("q_added", FieldValue.increment(0));
         }
         mapped.put("quantity", FieldValue.increment(quantity));
 
@@ -169,7 +174,11 @@ public class PutProductActivity extends AppCompatActivity {
 
     public void scanBarCode(View view) {
 
+    ;
+    String[] st = new String[1];
+    st[0] = String.valueOf(Manifest.permission.CAMERA.toString());
 
+        ActivityCompat.requestPermissions(PutProductActivity.this,  st,100);
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt("Scan Code");

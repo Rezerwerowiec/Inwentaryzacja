@@ -78,7 +78,6 @@ public class ReportGraphActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "FAILED", Toast.LENGTH_LONG).show();
                         }
 
-                        Toast.makeText(getApplicationContext(), String.valueOf(x), Toast.LENGTH_SHORT).show();
                         series.setDrawDataPoints(true);
 
                         graph.getViewport().setXAxisBoundsManual(true);
@@ -107,9 +106,13 @@ public class ReportGraphActivity extends AppCompatActivity {
                     if(task.isSuccessful()){
                         for(QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())){
                             if(document.getData().get("Barcode").equals((barcodeSaved))){
-                                viewQuantity.setText("Sztuk łącznie: " + document.getData().get("quantity").toString());
-                                viewAdded.setText("Sztuk dodanych: " + document.getData().get("q_added").toString());
-                                viewDeleted.setText("Sztuk usuniętych: " + document.getData().get("q_deleted").toString());
+                                try {
+                                    viewQuantity.setText("Sztuk łącznie: " + document.getData().get("quantity").toString());
+                                    viewAdded.setText("Sztuk dodanych: " + document.getData().get("q_added").toString());
+                                    viewDeleted.setText("Sztuk usuniętych: " + document.getData().get("q_deleted").toString());
+                                } catch (NullPointerException e){
+                                    Toast.makeText(getApplicationContext(), "Brak danych", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
                     }
