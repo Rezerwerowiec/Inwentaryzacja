@@ -33,7 +33,7 @@ public class AddItemActivity extends AppCompatActivity {
     public void onClickAddItem(View view){
         EditText et = findViewById(R.id.edittext);
         Map<String, Object> _data = new HashMap<String, Object>();
-        _data.put("Date", Timestamp.now().toString());
+        _data.put("Date", Timestamp.now().toDate().toString());
         _data.put("User", Build.USER);
 
         db.collection("itemTypes")

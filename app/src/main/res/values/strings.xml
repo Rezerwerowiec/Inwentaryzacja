@@ -32,4 +32,9 @@
         <item>EX621</item>
         <item>EX721</item>
     </string-array>
+    <string-array name="printers_name">
+        <item>!DEFAULT</item>
+    </string-array>
+    <string name="title_activity_printers_menu">PrintersMenuActivity</string>
+    <string name="previous">Previous</string>
 </resources>

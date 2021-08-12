@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
     <Button
         android:layout_width="match_parent"
@@ -12,7 +13,10 @@
         android:text="START"
         android:onClick="onClickGoToStart"
         android:id="@+id/start"
-        android:layout_marginTop="40sp"/>
+        android:textSize="20sp"
+
+        android:layout_marginTop="40sp"
+        android:layout_weight="5"/>
 
 
     <Button
@@ -21,17 +25,30 @@
         android:id="@+id/additemtype"
         android:text="Dodaj nowy typ"
         android:onClick="onClickGoAddItem"
-        android:layout_below="@+id/start"
-        android:layout_marginTop="40sp"/>
+        android:layout_weight="5"
+        android:textSize="20sp"
+
+        android:layout_marginTop="20sp"/>
+    <Button
+        android:id="@+id/printersmenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_weight="5"
+        android:textSize="20sp"
+        android:onClick="onClickShowPrintersMenu"
+        android:text="MENU DRUKAREK" />
 
     <Button
         android:id="@+id/logs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
-        android:layout_below="@+id/additemtype"
+        android:layout_marginTop="20sp"
+        android:layout_weight="5"
+        android:textSize="20sp"
+
         android:onClick="onClickShowLogs"
         android:text="LOGS" />
 
 
-</RelativeLayout>
+</LinearLayout>

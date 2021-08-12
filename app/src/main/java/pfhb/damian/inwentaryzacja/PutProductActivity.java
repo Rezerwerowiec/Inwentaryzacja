@@ -62,13 +62,13 @@ public class PutProductActivity extends AppCompatActivity {
     private void setUpSpinner(){
         Spinner spinner = (Spinner) findViewById(R.id.item_type);
         List<String> spinnerArray =  new ArrayList<String>();
+        spinnerArray.add("Nie zmieniaj nazwy###");
         db.collection("itemTypes")
                 .get()
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         for(QueryDocumentSnapshot document: task.getResult()){
                             spinnerArray.add(document.getId());
-
                         }
                         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                                 this,R.layout.spinner_layout,spinnerArray);
@@ -79,9 +79,6 @@ public class PutProductActivity extends AppCompatActivity {
                         spinner.setAdapter(spinnerArrayAdapter);
                     }
                 });
-
-
-
     }
 
 
@@ -220,7 +217,7 @@ public class PutProductActivity extends AppCompatActivity {
         String item = String.valueOf(sp.getSelectedItem());
         dataToSend.put("Barcode", barcodeSaved);
 
-        if(!item.equals("!Nie zmieniaj nazwy"))
+        if(!item.equals("Nie zmieniaj nazwy###"))
             dataToSend.put("Item", item);
 
 
