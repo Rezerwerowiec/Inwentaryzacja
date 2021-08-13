@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -61,10 +62,21 @@ public class PrintersMenuActivity extends AppCompatActivity {
     }
 
     public void EditCompatible(View view) {
+        Spinner tv = findViewById(R.id.spinner);
+        String printer =  String.valueOf(tv.getSelectedItem());
+        Intent intent = new Intent(this, EditPrinterActivity.class);
+        intent.putExtra("printer", printer);
+        startActivity(intent);
+
     }
 
     public void AddNewPrinter(View view) {
         Intent intent = new Intent(this, NewPrinterActivity.class);
+        startActivity(intent);
+    }
+
+    public void ShowStockStatus(View view) {
+        Intent intent = new Intent(this, StockStatusActivity.class);
         startActivity(intent);
     }
 }

@@ -36,10 +36,10 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="pokaz wykaz dostepnosci"
+        android:text="pokaż stan magazynowy"
         android:textSize="30sp"
-        android:layout_marginTop="5sp"
-        android:onClick="AddNewPrinter"/>
+        android:layout_marginTop="45sp"
+        android:onClick="ShowStockStatus"/>
 
 
 </LinearLayout>

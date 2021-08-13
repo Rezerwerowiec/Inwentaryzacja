@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Inwentaryzacja">
         <activity
+            android:name=".printers.StockStatusActivity"
+            android:exported="true" />
+        <activity
+            android:name=".printers.EditPrinterActivity"
+            android:exported="true" />
+        <activity
             android:name=".printers.NewPrinterActivity"
             android:exported="true" />
         <activity

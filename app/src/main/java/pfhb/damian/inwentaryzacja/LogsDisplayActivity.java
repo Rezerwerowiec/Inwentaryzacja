@@ -39,18 +39,8 @@ public class LogsDisplayActivity extends AppCompatActivity {
                             userView.setText(userView.getText().toString() + document.getData().get("user") + "\n");
                             barcodeView.setText(barcodeView.getText().toString() + document.getData().get("Barcode") + "\n");
                             quantityView.setText(quantityView.getText().toString() + document.getData().get("quantity") + "\n");
-                            //updateData(Date,Quantity,Barcode,User);
-
                         }
                     }
                 });
     }
-
-    private void updateData(String date, String user, String barcode, String quantity){
-        Date += date;
-        Quantity += quantity;
-        Barcode += barcode;
-        User += user;
-    }
-
 }

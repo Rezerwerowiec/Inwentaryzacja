@@ -35,9 +35,19 @@ public class AddItemActivity extends AppCompatActivity {
         Map<String, Object> _data = new HashMap<String, Object>();
         _data.put("Date", Timestamp.now().toDate().toString());
         _data.put("User", Build.USER);
+        String docTitle = "";
+        try{
+            docTitle = et.getText().toString();
+        }
+        catch(NullPointerException e){
+            Toast.makeText(getBaseContext(), "Wpisz nazwę!", Toast.LENGTH_LONG).show();
+        }
+        if(docTitle.equals("") || docTitle==null || docTitle == "") {
+            Toast.makeText(getBaseContext(), "Wpisz nazwę!", Toast.LENGTH_LONG).show();
+        }
 
         db.collection("itemTypes")
-                .document(et.getText().toString())
+                .document(docTitle)
                 .set( _data)
                 .addOnSuccessListener(aVoid -> {
                     Log.d(TAG, "DocumentSnapshot added");

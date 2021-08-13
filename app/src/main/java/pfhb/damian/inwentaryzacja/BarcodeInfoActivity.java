@@ -37,20 +37,17 @@ public class BarcodeInfoActivity extends AppCompatActivity {
 
     private void GetInfo(){
         DocumentReference docRef = db.collection("Inwentaryzacja_testy").document(barcodeSaved);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        SecureData(document.getData());
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    SecureData(document.getData());
+                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.d(TAG, "No such document");
                 }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
             }
         });
     }
