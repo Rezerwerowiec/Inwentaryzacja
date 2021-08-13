@@ -69,12 +69,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickGoToStart(View view){
-        Intent intent = new Intent(this, PutProductActivity.class);
+        Intent intent = new Intent(this, ScanBarcodeActivity.class);
         startActivity(intent);
     }
 
-    public void onClickGoAddItem(View view){
-        Intent intent = new Intent(this, AddItemActivity.class);
+    public void onClickShowStockStatus(View view) {
+        Intent intent = new Intent(this, StockStatusActivity.class);
         startActivity(intent);
     }
 

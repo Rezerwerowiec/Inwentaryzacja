@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PutProductActivity"
+    tools:context=".ScanBarcodeActivity"
     android:orientation="horizontal">
 
 
@@ -35,26 +35,6 @@
         android:text="Raport danych" />
 
 
-
-    <EditText
-        android:id="@+id/quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/barcodeview"
-        android:layout_marginTop="40dp"
-        android:hint="Podaj ilość sztuk"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal|numberSigned"
-        android:textSize="40sp" />
-
-    <Spinner
-        android:id="@+id/item_type"
-        android:layout_width="match_parent"
-        android:layout_height="80sp"
-        android:layout_above="@id/scan_barcode"
-        android:entries="@array/item_type"
-        android:layout_marginBottom="30sp"/>
-
     <Button
 
         android:id="@+id/sendData"
@@ -64,10 +44,10 @@
         android:layout_marginTop="30sp"
         android:layout_marginBottom="0sp"
         android:maxHeight="150sp"
-        android:onClick="onClickSendData"
+        android:onClick="onClickGoPutData"
         android:paddingTop="50sp"
         android:paddingBottom="50sp"
-        android:text="Wyślij dane"
+        android:text="wyślij dane..."
         android:textAlignment="center"
         android:textSize="30sp" />
 

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout-v26/activity_add_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_add_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_barcode_info.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_edit_printer.xml" value="0.25416666666666665" />
@@ -11,6 +12,7 @@
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_new_printer.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_pg_conn.xml" value="0.1" />
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_printers_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_put_data.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_report_graph.xml" value="0.1767881241565452" />
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/activity_stock_status.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Damian/AndroidStudioProjects/Inwentaryzacja/app/src/main/res/layout/content_printers_menu.xml" value="0.25416666666666665" />

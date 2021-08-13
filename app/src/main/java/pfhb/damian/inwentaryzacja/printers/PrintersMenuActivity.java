@@ -74,9 +74,4 @@ public class PrintersMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewPrinterActivity.class);
         startActivity(intent);
     }
-
-    public void ShowStockStatus(View view) {
-        Intent intent = new Intent(this, StockStatusActivity.class);
-        startActivity(intent);
-    }
 }

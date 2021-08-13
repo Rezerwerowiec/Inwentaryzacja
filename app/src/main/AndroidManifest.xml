@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Inwentaryzacja">
         <activity
-            android:name=".printers.StockStatusActivity"
+            android:name=".putData.PutDataActivity"
+            android:exported="true" />
+        <activity
+            android:name=".StockStatusActivity"
             android:exported="true" />
         <activity
             android:name=".printers.EditPrinterActivity"
@@ -50,7 +53,7 @@
             android:name=".BarcodeInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".PutProductActivity"
+            android:name=".ScanBarcodeActivity"
             android:exported="true" />
     </application>
 

@@ -12,17 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/edittext"
-        android:layout_rowWeight="5"
         android:focusedByDefault="true"
         android:textSize="30sp"
-        android:layout_weight="5"/>
+        android:layout_weight="1"
+        android:hint="Wpisz nazwę"
+        android:inputType="text" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="fill_horizontal"
-        android:textSize="40sp"
-        android:text="DODAJ ITEM"
+        android:minHeight="200sp"
+        android:textSize="35sp"
+        android:text="DODAJ przedmiot"
         android:onClick="onClickAddItem"
     />
 

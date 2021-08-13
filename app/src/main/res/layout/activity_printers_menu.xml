@@ -29,17 +29,11 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="edytuj materialy eksploatacyjne"
+        android:text="edytuj materiały eksploatacyjne"
         android:textSize="30sp"
         android:layout_marginTop="50sp"
         android:onClick="EditCompatible"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="pokaż stan magazynowy"
-        android:textSize="30sp"
-        android:layout_marginTop="45sp"
-        android:onClick="ShowStockStatus"/>
+
 
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package pfhb.damian.inwentaryzacja.printers;
+package pfhb.damian.inwentaryzacja;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +25,7 @@ public class StockStatusActivity extends AppCompatActivity {
 
     private void showStockInfo() {
         TextView tv = findViewById(R.id.stockInfo);
+        TextView tv2 = findViewById(R.id.pcs);
 
         db.collection("Inwentaryzacja_testy")
                 .get()
@@ -32,14 +33,19 @@ public class StockStatusActivity extends AppCompatActivity {
                     if(task.isSuccessful()){
                         for(QueryDocumentSnapshot document : task.getResult()){
                             String txt = tv.getText().toString();
+                            String txt2 = tv2.getText().toString();
                             String name = document.getData().get("Item").toString();
                             int min = Integer.parseInt(Objects.requireNonNull(document.getData().get("min")).toString());
                             int pcs = Integer.parseInt(Objects.requireNonNull(document.getData().get("quantity")).toString());
-                            if(pcs < min){
-                                tv.setText(name + " " + pcs + " szt. (min. " + min + ")\n"+txt);
+                            int balance = pcs-min;
+                            if(balance <= 0){
+                                tv.setText(name + " \n"+txt);
+                                tv2.setText(pcs + " szt. (min. " + min + ")  " + balance + "\n" + txt2);
                             }
-                            else
-                                tv.setText(txt + "\n" + name + " " + pcs + " szt. (min. " + min + ")");
+                            else {
+                                tv.setText(txt + "\n" + name + " ");
+                                tv2.setText(txt2 +"\n" + pcs + " szt. (min. " + min + ")  +" + balance);
+                            }
                         }
                     }
                 });

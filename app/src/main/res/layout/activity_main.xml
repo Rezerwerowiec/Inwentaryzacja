@@ -23,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/additemtype"
-        android:text="Dodaj nowy typ"
-        android:onClick="onClickGoAddItem"
+        android:text="pokaż stany magazynowe"
+        android:onClick="onClickShowStockStatus"
         android:layout_weight="5"
         android:textSize="20sp"
 
