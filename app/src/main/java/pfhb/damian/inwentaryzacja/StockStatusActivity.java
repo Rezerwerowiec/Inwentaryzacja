@@ -31,20 +31,24 @@ public class StockStatusActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
-                        for(QueryDocumentSnapshot document : task.getResult()){
+                        for(QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())){
                             String txt = tv.getText().toString();
                             String txt2 = tv2.getText().toString();
-                            String name = document.getData().get("Item").toString();
+                            String name = Objects.requireNonNull(document.getData().get("Item")).toString();
                             int min = Integer.parseInt(Objects.requireNonNull(document.getData().get("min")).toString());
                             int pcs = Integer.parseInt(Objects.requireNonNull(document.getData().get("quantity")).toString());
                             int balance = pcs-min;
-                            if(balance <= 0){
+                            if(balance < 0){
                                 tv.setText(name + " \n"+txt);
                                 tv2.setText(pcs + " szt. (min. " + min + ")  " + balance + "\n" + txt2);
                             }
-                            else {
+                            else if(balance > 0){
                                 tv.setText(txt + "\n" + name + " ");
                                 tv2.setText(txt2 +"\n" + pcs + " szt. (min. " + min + ")  +" + balance);
+                            }
+                            else {
+                                tv.setText(txt + "\n" + name + " ");
+                                tv2.setText(txt2 +"\n" + pcs + " szt. (min. " + min + ")  " + balance);
                             }
                         }
                     }

@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -151,6 +152,34 @@ public class PutDataActivity extends AppCompatActivity {
         catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
+        CheckForStockStatus();
+    }
+
+    private void CheckForStockStatus(){
+        db.collection("Inwentaryzacja_testy")
+                .document(barcode)
+                .get()
+                .addOnCompleteListener(task ->{
+                    if(task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        int min, stan;
+                        min = Integer.parseInt(String.valueOf(document.getData().get("min")));
+                        stan = Integer.parseInt(String.valueOf(document.getData().get("quantity")));
+                        String name = String.valueOf(document.getData().get("Item"));
+                        if(min > stan){
+                            Intent email = new Intent(Intent.ACTION_SEND);
+                            email.putExtra(Intent.EXTRA_EMAIL, new String[] {"damianpiszka@pfhb.pl"});
+                            email.putExtra(Intent.EXTRA_SUBJECT, name);
+                            email.putExtra(Intent.EXTRA_TEXT, "Wiadomość automatyczna.\n\n" +
+                                    "Materiał: " + name + "\n" +
+                                    "Ilość na stanie/Ilość minimalna:" + stan + "/" + min + "\n" +
+                                    ":)");
+                            email.setType("message/rfc822");
+                            startActivity(email);
+                        }
+                    }
+                });
     }
 
     private void MakeLogs(Map<String,Object> newData, int quantity){
