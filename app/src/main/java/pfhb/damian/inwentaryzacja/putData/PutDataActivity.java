@@ -2,39 +2,42 @@ package pfhb.damian.inwentaryzacja.putData;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.Timestamp;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import java.util.ArrayList;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import pfhb.damian.inwentaryzacja.R;
+import pfhb.damian.inwentaryzacja.ScanBarcodeActivity;
 
 public class PutDataActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     boolean fromdb = false;
     String barcode;
+    private long mLastClickTime = 0;
+    Variables _var = new Variables();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,30 +60,34 @@ public class PutDataActivity extends AppCompatActivity {
                         assert document != null;
                         if (document.exists()) {
                             fromdb = true;
-                            tv.setText(tv.getText() + "\n"+ Objects.requireNonNull(document.getData()).get("Item"));
+                            //tv.setText(tv.getText() + "\n"+ Objects.requireNonNull(document.getData()).get("Item"));
                             EditText min = findViewById(R.id.min);
                             EditText typ = findViewById(R.id.item_type);
-                            typ.setText(Objects.requireNonNull(document.getData().get("Item")).toString());
+                            typ.setText(Objects.requireNonNull(Objects.requireNonNull(document.getData()).get("Item")).toString());
                             min.setText(Objects.requireNonNull(document.getData().get("min")).toString());
                         }
-                        else tv.setText(tv.getText() + "\nBrak produktu w bazie!\nUzupełnij nazwę oraz minimum.");
+                        else tv.setText(barcode + "\nBrak produktu w bazie!\nUzupełnij nazwę oraz minimum.");
                     }
                 });
     }
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClickSendData(View view) {
-        EditText et;
+
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 5000){
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
         EditText sp = findViewById(R.id.item_type);
         Map<String, Object> dataToSend = new HashMap<>();
 
         String item = sp.getText().toString();
+        dataToSend.put("Item", item);
         dataToSend.put("Barcode", barcode);
-
-        if(!item.equals("Nie zmieniaj nazwy###"))
-            dataToSend.put("Item", item);
-        else if(!fromdb) {
+        if(item.equals("") || item.isEmpty()) {
             Toast.makeText(getBaseContext(), "Wybierz typ przedmiotu!", Toast.LENGTH_LONG).show();
             return;
         }
@@ -92,17 +99,11 @@ public class PutDataActivity extends AppCompatActivity {
         }
         dataToSend.put("min", et2.getText().toString());
 
-
         FireBasePutData(dataToSend);
-
-        TextView textView = findViewById(R.id.info);
-        textView.setText("");
-        et = findViewById(R.id.quantity);
-        et.setText("");
-        barcode = "";
-
+        startActivity(new Intent(this, ScanBarcodeActivity.class));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public synchronized void FireBasePutData(Map<String, Object> newData) {
 
 
@@ -153,10 +154,12 @@ public class PutDataActivity extends AppCompatActivity {
             Thread.currentThread().interrupt();
         }
 
-        CheckForStockStatus();
+        getCompatiblePrinters(newData);
     }
 
     private void CheckForStockStatus(){
+
+
         db.collection("Inwentaryzacja_testy")
                 .document(barcode)
                 .get()
@@ -164,17 +167,25 @@ public class PutDataActivity extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         int min, stan;
-                        min = Integer.parseInt(String.valueOf(document.getData().get("min")));
+                        assert document != null;
+                        min = Integer.parseInt(String.valueOf(Objects.requireNonNull(document.getData()).get("min")));
                         stan = Integer.parseInt(String.valueOf(document.getData().get("quantity")));
                         String name = String.valueOf(document.getData().get("Item"));
                         if(min > stan){
                             Intent email = new Intent(Intent.ACTION_SEND);
-                            email.putExtra(Intent.EXTRA_EMAIL, new String[] {"damianpiszka@pfhb.pl"});
+                            email.putExtra(Intent.EXTRA_EMAIL, new String[] {
+                                    "d.piszka@pfhb.pl"
+                            });
+
                             email.putExtra(Intent.EXTRA_SUBJECT, name);
-                            email.putExtra(Intent.EXTRA_TEXT, "Wiadomość automatyczna.\n\n" +
-                                    "Materiał: " + name + "\n" +
-                                    "Ilość na stanie/Ilość minimalna:" + stan + "/" + min + "\n" +
-                                    ":)");
+                            Log.d(TAG, "Damian2...   " + _var.getResult());
+
+
+                            email.putExtra(Intent.EXTRA_TEXT, "Wiadomosc automatyczna.\n\n" +
+                                    "Material: \t" + name + "\n" +
+                                    "Ilosc na stanie/Ilosc minimalna:\t" + stan + "/" + min + "\n" +
+                                    "Pasuja do: " + _var.getResult());
+
                             email.setType("message/rfc822");
                             startActivity(email);
                         }
@@ -182,11 +193,34 @@ public class PutDataActivity extends AppCompatActivity {
                 });
     }
 
+    private void getCompatiblePrinters(Map<String, Object> data){
+        String item = Objects.requireNonNull(data.get("Item")).toString();
+
+        db.collection("Inwentaryzacja_drukarki")
+                .get()
+                .addOnCompleteListener(task ->{
+                    for(QueryDocumentSnapshot document: Objects.requireNonNull(task.getResult())){
+                        List ls = (List) document.getData().get("array.kompatybilne");
+                        assert ls != null;
+                        if(ls.contains(item)) {
+                            _var.addResult(document.getId());
+                            Log.d(TAG, "Damian..." + _var.getResult());
+                        }
+                    }
+
+                });
+        if(_var.getResult() != null && !_var.getResult().equals(""))
+                _var.addResult("Brak kompatybilnych drukarek.");
+        CheckForStockStatus();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void MakeLogs(Map<String,Object> newData, int quantity){
         newData.put("quantity", quantity);
         newData.put("user", Build.MANUFACTURER +" " + Build.MODEL);
         db.collection("Inwentaryzacja_testy_logs")
-                .document(Timestamp.now().toDate().toString())
+                .document(DateTimeFormatter.ofPattern("dd-MM HH:mm:ss")
+                        .withZone(ZoneOffset.systemDefault()).format(Instant.now()))
                 .set(newData)
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "Logs: DocumentSnapshot added"))
                 .addOnFailureListener(e -> Log.w(TAG, "Logs: Error adding document", e));

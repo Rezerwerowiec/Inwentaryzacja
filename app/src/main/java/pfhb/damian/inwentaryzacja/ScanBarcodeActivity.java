@@ -101,4 +101,8 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         intent.putExtra("barcode", barcodeSaved);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
 }

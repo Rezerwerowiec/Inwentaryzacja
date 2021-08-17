@@ -7,9 +7,8 @@
     <GridLayout
 
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         tools:context=".LogsDisplayActivity"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:rowCount="1"
         android:columnCount="4"
@@ -19,9 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_column="0"
             android:id="@+id/viewDate"
-            android:text="DATA\n\n"
+            android:text="DATE\n\n"
             android:textSize="10sp"
-            android:layout_marginLeft="2sp"
+            android:layout_marginStart="2sp"
             android:layout_gravity="fill_horizontal"
             android:layout_columnWeight="1"
         />
@@ -31,7 +30,7 @@
             android:id="@+id/viewUser"
             android:text="USER\n\n"
             android:textSize="10sp"
-            android:layout_marginLeft="15sp"
+            android:layout_marginStart="15sp"
             android:layout_gravity="fill_horizontal"
             android:layout_columnWeight="1"
             />
@@ -41,7 +40,7 @@
             android:id="@+id/viewBarcode"
             android:text="BARCODE\n\n"
             android:textSize="10sp"
-            android:layout_marginLeft="15sp"
+            android:layout_marginStart="15sp"
             android:layout_gravity="fill_horizontal"
             android:layout_columnWeight="1"
             />
@@ -51,7 +50,7 @@
             android:id="@+id/viewQuantity"
             android:text="QUANTITY\n\n"
             android:textSize="10sp"
-            android:layout_marginLeft="15sp"
+            android:layout_marginStart="15sp"
             android:layout_gravity="fill_horizontal"
             android:layout_columnWeight="1"
             />

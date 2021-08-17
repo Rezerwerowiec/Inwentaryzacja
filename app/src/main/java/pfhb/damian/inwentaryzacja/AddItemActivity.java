@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,10 @@ public class AddItemActivity extends AppCompatActivity {
 
 
     }
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
     public void onClickAddItem(View view){
         EditText et = findViewById(R.id.edittext);
         Map<String, Object> _data = new HashMap<String, Object>();

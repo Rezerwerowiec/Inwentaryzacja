@@ -3,6 +3,7 @@ package pfhb.damian.inwentaryzacja;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,12 +36,17 @@ public class LogsDisplayActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String[] toSplit = document.getId().split(" ");
 
-                            dateView.setText(dateView.getText() + toSplit[2] +"/" + toSplit[1] + " " + toSplit[3] + "\n");
+//                            dateView.setText(dateView.getText() + toSplit[2] +"/" + toSplit[1] + " " + toSplit[3] + "\n");
+                            dateView.setText(dateView.getText() + document.getId() + "\n");
                             userView.setText(userView.getText().toString() + document.getData().get("user") + "\n");
                             barcodeView.setText(barcodeView.getText().toString() + document.getData().get("Barcode") + "\n");
                             quantityView.setText(quantityView.getText().toString() + document.getData().get("quantity") + "\n");
                         }
                     }
                 });
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

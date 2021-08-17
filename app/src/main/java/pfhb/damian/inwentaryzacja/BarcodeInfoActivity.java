@@ -35,6 +35,7 @@ public class BarcodeInfoActivity extends AppCompatActivity {
         GetInfo();
     }
 
+
     private void GetInfo(){
         DocumentReference docRef = db.collection("Inwentaryzacja_testy").document(barcodeSaved);
         docRef.get().addOnCompleteListener(task -> {

@@ -63,14 +63,14 @@ public class ReportGraphActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 date = document.getId().toString();
-                                String[] parts = date.split(" ");
-                                date = parts[1];
-                                if(document.getData().get("Barcode").equals(barcodeSaved) && date.contains("Aug")) {
+//                                String[] parts = date.split(" ");
+//                                date = parts[1];
+                                if(document.getData().get("Barcode").equals(barcodeSaved) && date.contains("-08")) {
                                     x++;
-                                    y += Integer.valueOf(document.getData().get("quantity").toString());
-                                    int y2 = Integer.valueOf(document.getData().get("quantity").toString());
-                                    series.appendData(new DataPoint(x, y), true, 50);
-                                    series2.appendData(new DataPoint(x, y2), true, 50);
+                                    y += Integer.parseInt(Objects.requireNonNull(document.getData().get("quantity")).toString());
+                                    int y2 = Integer.parseInt(document.getData().get("quantity").toString());
+                                    series.appendData(new DataPoint(x, y), true, 9999);
+                                    series2.appendData(new DataPoint(x, y2), true, 9999);
                                 }
                             }
                         } else {
@@ -78,18 +78,20 @@ public class ReportGraphActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "FAILED", Toast.LENGTH_LONG).show();
                         }
 
+                        String splitted[] = date.split(" ");
+                        splitted = splitted[0].split("-");
                         series.setDrawDataPoints(true);
 
                         graph.getViewport().setXAxisBoundsManual(true);
                         graph.getViewport().setMinX(0);
                         graph.getViewport().setMaxX(x+1);
-                        graph.getGridLabelRenderer().setHorizontalAxisTitle(date);
+                        graph.getGridLabelRenderer().setHorizontalAxisTitle(splitted[1]);
                         graph.getGridLabelRenderer().setVerticalAxisTitle("Sztuki");
                         graph.setTitle("Wykaz ilości sztuk");
                         graph.addSeries(series);
 
                         series2.setDrawDataPoints(true);
-                        graph2.getGridLabelRenderer().setHorizontalAxisTitle(date);
+                        graph2.getGridLabelRenderer().setHorizontalAxisTitle(splitted[1]);
                         graph2.getGridLabelRenderer().setVerticalAxisTitle("Sztuki");
                         graph2.getViewport().setXAxisBoundsManual(true);
                         graph2.getViewport().setMinX(0);

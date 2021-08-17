@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ScanBarcodeActivity"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
 
     <TextView
@@ -16,63 +16,56 @@
         android:text="Zeskanuj barcode!"
         android:textSize="40sp" />
 
-    <Button
-        android:id="@+id/showInfo"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/barcodeview"
-        android:onClick="FireBaseGetInfoAboutBarcode"
-        android:text="Pokaż informacje" />
+        android:layout_marginTop="30sp">
+        <Button
+            android:id="@+id/showInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="FireBaseGetInfoAboutBarcode"
+            android:text="Pokaż informacje" />
 
-    <Button
-        android:id="@+id/report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/barcodeview"
-        android:layout_marginStart="5sp"
-        android:layout_toEndOf="@+id/showInfo"
-        android:onClick="onClickShowReport"
-        android:text="Raport danych" />
+        <Button
+            android:id="@+id/report"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5sp"
+            android:layout_weight="1"
 
+            android:onClick="onClickShowReport"
+            android:text="Raport danych" />
+    </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
     <Button
 
         android:id="@+id/sendData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="30sp"
         android:layout_marginBottom="0sp"
-        android:maxHeight="150sp"
+        android:maxHeight="200sp"
         android:onClick="onClickGoPutData"
-        android:paddingTop="50sp"
-        android:paddingBottom="50sp"
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
         android:text="wyślij dane..."
         android:textAlignment="center"
         android:textSize="30sp" />
-
-
     <Button
-
         android:id="@+id/scan_barcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/sendData"
         android:gravity="center"
-        android:maxHeight="150sp"
+        android:maxHeight="200sp"
         android:onClick="scanBarCode"
-        android:paddingTop="50sp"
-        android:paddingBottom="50sp"
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
         android:text="Skanuj BarCode"
         android:textAlignment="center"
         android:textSize="30sp" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="71dp"
-        android:layout_height="63dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        app:srcCompat="@drawable/pfhbipm_logo" />
-
-</RelativeLayout>
+</LinearLayout>

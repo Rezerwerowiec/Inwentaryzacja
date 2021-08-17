@@ -23,6 +23,7 @@ import androidx.navigation.ui.NavigationUI;
 import java.util.ArrayList;
 import java.util.List;
 
+import pfhb.damian.inwentaryzacja.MainActivity;
 import pfhb.damian.inwentaryzacja.R;
 import pfhb.damian.inwentaryzacja.databinding.ActivityPrintersMenuBinding;
 
@@ -73,5 +74,9 @@ public class PrintersMenuActivity extends AppCompatActivity {
     public void AddNewPrinter(View view) {
         Intent intent = new Intent(this, NewPrinterActivity.class);
         startActivity(intent);
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 }
